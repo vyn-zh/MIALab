@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-#test commit change
+#2nd commit
 def main():
     # todo: load the "results.csv" file from the mia-results directory
     # todo: read the data into a list
