@@ -76,7 +76,7 @@ def main(result_dir: str, data_atlas_dir: str, data_train_dir: str, data_test_di
     data_train = np.concatenate([img.feature_matrix[0] for img in images])
     labels_train = np.concatenate([img.feature_matrix[1] for img in images]).squeeze()
 
-    warnings.warn('Random forest parameters not properly set.')
+    # warnings.warn('Random forest parameters not properly set.')
     forest = sk_ensemble.RandomForestClassifier(max_features=images[0].feature_matrix[0].shape[1],
                                                 n_estimators=15,
                                                 max_depth=40)
@@ -93,7 +93,7 @@ def main(result_dir: str, data_atlas_dir: str, data_train_dir: str, data_test_di
     print('-' * 5, 'Testing...')
 
     # initialize evaluator
-    evaluator = putil.init_evaluator(result_dir)
+    evaluator = putil.init_evaluator()
 
     # crawl the training image directories
     crawler = futil.FileSystemDataCrawler(data_test_dir,
@@ -128,17 +128,18 @@ def main(result_dir: str, data_atlas_dir: str, data_train_dir: str, data_test_di
         images_probabilities.append(image_probabilities)
 
     # post-process segmentation and evaluate with post-processing
+
     post_process_params = {'simple_post': True}
-    images_post_processed = putil.post_process_batch(images_test, images_prediction, images_probabilities,
-                                                     post_process_params, multi_process=True)
+    # images_post_processed = putil.post_process_batch(images_test, images_prediction, images_probabilities,
+    #                                                  post_process_params, multi_process=True)
 
     for i, img in enumerate(images_test):
-        evaluator.evaluate(images_post_processed[i], img.images[structure.BrainImageTypes.GroundTruth],
-                           img.id_ + '-PP')
+        # evaluator.evaluate(images_post_processed[i], img.images[structure.BrainImageTypes.GroundTruth],
+        #                    img.id_ + '-PP')
 
         # save results
         sitk.WriteImage(images_prediction[i], os.path.join(result_dir, images_test[i].id_ + '_SEG.mha'), True)
-        sitk.WriteImage(images_post_processed[i], os.path.join(result_dir, images_test[i].id_ + '_SEG-PP.mha'), True)
+        # sitk.WriteImage(images_post_processed[i], os.path.join(result_dir, images_test[i].id_ + '_SEG-PP.mha'), True)
 
     # use two writers to report the results
     os.makedirs(result_dir, exist_ok=True)  # generate result directory, if it does not exists

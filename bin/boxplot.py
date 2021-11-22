@@ -116,10 +116,13 @@ def main():
     # Configuration
     metric_to_compute = ('DICE', 'HDRFDST')
     structures_to_compute = ('Thalamus', )
-    experiment_paths = ('/mia-result/2021-10-11-09-07-25', '/mia-result/2021-10-11-09-07-25')
-    experiment_names = ('First Experiment', 'Second Experiment')
+    # experiment_paths = ('/mia-result/2021-10-11-09-07-25', '/mia-result/2021-10-11-09-07-25')
+    # experiment_names = ('First Experiment', 'Second Experiment')
+    experiment_paths = ['mia-result/2021-11-22-09-31-45']
+    experiment_names = ['First Experiment']
+
     plot_output_directory = './mia-result/'
-    plot_title = ('Comparison of Experiments on Thalamus', )
+    plot_title = ('Comparison of Experiments on Thalamus',)
     plot_ylabels = ('Dice', 'Hausdorff-Distance')
     plot_timestamp = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
